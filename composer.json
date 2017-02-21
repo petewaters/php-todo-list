@@ -1,0 +1,10 @@
+{
+	"autoload": {
+		"psr-4": {
+			"Todo\\": "app"
+		}
+	},
+	"require": {
+		"phpunit/phpunit": "^6.0"
+	}
+}
