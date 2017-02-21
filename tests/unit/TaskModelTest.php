@@ -2,10 +2,8 @@
 
 use PHPUnit\Framework\TestCase;
 use Todo\Models\Task;
-use DateTime;
-use Reflector;
 
-class CalculatorTest extends TestCase 
+class TaskModelTest extends TestCase 
 {
 	protected $task;
 

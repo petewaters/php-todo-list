@@ -2,6 +2,8 @@
 
 namespace Todo\Storage\Contracts;
 
+use Todo\Models\Task;
+
 interface TaskStorageInterface
 {
 	public function store(Task $task);

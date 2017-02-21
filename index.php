@@ -1,5 +1,8 @@
 <?php
 
+use Todo\Models\Task;
+use Todo\Storage\MySqlDatabaseTaskStorage;
+
 require 'vendor/autoload.php';
 
 session_start();
@@ -10,8 +13,7 @@ try {
 	echo 'Error establishing connection to database.';
 }
 
-$tasks = $db->prepare("SELECT * FROM tasks");
-$tasks->setFetchMode(PDO::FETCH_CLASS, Task::class);
-$tasks->execute();
+$storage = new MySqlDatabaseTaskStorage($db);
+$tasks = $storage->all();
 
-var_dump($tasks->fetchAll());
+var_dump($tasks);
