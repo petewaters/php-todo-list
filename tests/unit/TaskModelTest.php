@@ -47,6 +47,7 @@ class CalculatorTest extends TestCase
 		$this->task->setDue($date);
 
 		$this->assertEquals($this->task->getDue(), $date);
+		$this->assertInstanceOf('DateTime', $this->task->getDue());
 	}
 
 	/** @test **/
