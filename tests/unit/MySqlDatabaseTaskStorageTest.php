@@ -24,7 +24,9 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 	/** @test **/
 	public function that_we_can_retrieve_a_task_from_the_database_by_id()
 	{
-		$this->assertCount(1, $this->storage->get(1));
+		$task = $this->storage->get(0);
+
+		$this->assertEquals(0, $task->getId());
 	}
 
 	/** @test **/
@@ -44,5 +46,27 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 		$this->storage->delete($lastStoredTaskId);
 
 		$this->assertCount(2, $this->storage->all());
+	}
+
+	/** @test **/
+	public function that_we_can_update_a_stored_task()
+	{
+		$task = $this->storage->get(0);
+
+		// Store the values to revert the task back to its original state after test
+		$original = clone($task);
+
+		$task->setDescription('Updated description');
+		$task->setComplete(true);
+
+		$this->storage->update($task);
+
+		$updatedTask = $this->storage->get(0);
+
+		$this->assertEquals($updatedTask->getDescription(), 'Updated description');
+		$this->assertEquals($updatedTask->getComplete(), true);
+
+		// Revert back to original state
+		$this->storage->update($original);
 	}
 }

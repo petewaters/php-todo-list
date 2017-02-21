@@ -15,8 +15,4 @@ try {
 
 $storage = new MySqlDatabaseTaskStorage($db);
 
-$task = new Task;
-$task->setDescription('Test');
-$task->setDue(new DateTime('+2 days'));
 
-$storage->store($task);

@@ -33,7 +33,23 @@ class MySqlDatabaseTaskStorage implements TaskStorageInterface
 
 	public function update(Task $task)
 	{
+		$query = $this->db->prepare("
+			UPDATE tasks 
+			SET 
+				description = :description,
+				due = :due,
+				complete = :complete
+			WHERE id = :id
+		");
 
+		$query->execute([
+			'id' => $task->getId(),
+			'description' => $task->getDescription(),
+			'due' => $task->getDue()->format('Y-m-d H:i:s'),
+			'complete' => $task->getComplete() ? 1 : 0,
+		]);
+
+		return $this->get($task->getId());
 	}
 
 	public function get(int $id)
@@ -49,7 +65,7 @@ class MySqlDatabaseTaskStorage implements TaskStorageInterface
 			'id' => $id,
 		]);
 
-		return $query->fetchAll();
+		return $query->fetch();
 	}
 
 	public function delete(int $id)
