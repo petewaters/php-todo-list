@@ -17,7 +17,7 @@ class MySqlDatabaseTaskStorage implements TaskStorageInterface
 
 	public function store(Task $task)
 	{
-
+		
 	}
 
 	public function update(Task $task)
@@ -27,7 +27,18 @@ class MySqlDatabaseTaskStorage implements TaskStorageInterface
 
 	public function get(int $id)
 	{
+		$query = $this->db->prepare("
+			SELECT * FROM tasks
+			WHERE id = :id
+		");
 
+		$query->setFetchMode(PDO::FETCH_CLASS, Task::class);
+
+		$query->execute([
+			'id' => $id,
+		]);
+
+		return $query->fetchAll();
 	}
 
 	public function all()

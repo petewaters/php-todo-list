@@ -14,6 +14,5 @@ try {
 }
 
 $storage = new MySqlDatabaseTaskStorage($db);
-$tasks = $storage->all();
 
-var_dump($tasks);
+

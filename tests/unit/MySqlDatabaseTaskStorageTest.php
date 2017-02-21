@@ -20,4 +20,10 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 	{
 		$this->assertCount(2, $this->storage->all());
 	}
+
+	/** @test **/
+	public function that_we_can_retrieve_a_task_from_the_database_by_id()
+	{
+		$this->assertCount(1, $this->storage->get(1));
+	}
 }
