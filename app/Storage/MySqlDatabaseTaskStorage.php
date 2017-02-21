@@ -52,6 +52,18 @@ class MySqlDatabaseTaskStorage implements TaskStorageInterface
 		return $query->fetchAll();
 	}
 
+	public function delete(int $id)
+	{
+		$query = $this->db->prepare("
+			DELETE FROM tasks 
+			WHERE id = :id
+		");
+
+		$query->execute([
+			'id' => $id,
+		]);
+	}
+
 	public function all()
 	{
 		$query = $this->db->prepare("SELECT * FROM tasks");

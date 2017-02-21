@@ -28,7 +28,7 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 	}
 
 	/** @test **/
-	public function that_we_can_store_a_task()
+	public function that_we_can_store_a_task_return_the_id_and_delete_a_task()
 	{
 		$date = new DateTime('now');
 
@@ -37,8 +37,12 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 		$task->setDue($date);
 		$task->setComplete(false);
 
-		$this->storage->store($task);
+		$lastStoredTaskId = $this->storage->store($task);
 
 		$this->assertCount(3, $this->storage->all());
+
+		$this->storage->delete($lastStoredTaskId);
+
+		$this->assertCount(2, $this->storage->all());
 	}
 }
