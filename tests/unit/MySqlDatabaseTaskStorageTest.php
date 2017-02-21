@@ -26,4 +26,19 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 	{
 		$this->assertCount(1, $this->storage->get(1));
 	}
+
+	/** @test **/
+	public function that_we_can_store_a_task()
+	{
+		$date = new DateTime('now');
+
+		$task = new Task;
+		$task->setDescription('Test');
+		$task->setDue($date);
+		$task->setComplete(false);
+
+		$this->storage->store($task);
+
+		$this->assertCount(3, $this->storage->all());
+	}
 }

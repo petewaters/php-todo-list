@@ -17,7 +17,18 @@ class MySqlDatabaseTaskStorage implements TaskStorageInterface
 
 	public function store(Task $task)
 	{
-		
+		$query = $this->db->prepare("
+			INSERT INTO tasks (description, due, complete)
+			VALUES (:description, :due, :complete)
+		");
+
+		$query->execute([
+			'description' => $task->getDescription(),
+			'due' => $task->getDue()->format('Y-m-d H:i:s'),
+			'complete' => $task->getComplete() ? 1 : 0,
+		]);
+
+		return $this->db->lastInsertId();
 	}
 
 	public function update(Task $task)
