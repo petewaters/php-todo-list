@@ -1,6 +1,7 @@
 <?php
 
 use Todo\Models\Task;
+use Todo\TaskManager;
 use Todo\Storage\MySqlDatabaseTaskStorage;
 
 require 'vendor/autoload.php';
@@ -13,6 +14,5 @@ try {
 	echo 'Error establishing connection to database.';
 }
 
-$storage = new MySqlDatabaseTaskStorage($db);
-
+$manager = new TaskManager(new MySqlDatabaseTaskStorage($db));
 

@@ -39,7 +39,7 @@ class MySqlDatabaseTaskStorageTest extends TestCase
 		$task->setDue($date);
 		$task->setComplete(false);
 
-		$lastStoredTaskId = $this->storage->store($task);
+		$lastStoredTaskId = $this->storage->store($task)->getId();
 
 		$this->assertCount(3, $this->storage->all());
 
